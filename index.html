@@ -2,15 +2,110 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Ma Boutique en Ligne</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>O'Ramo Store - Produits Exclusifs</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        header {
+            background-color: #ff6600;
+            color: white;
+            text-align: center;
+            padding: 2rem 1rem;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        .product-card {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.2s;
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+        .product-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 4px;
+            background-color: #ddd;
+        }
+        .product-title {
+            font-size: 1.2rem;
+            margin: 15px 0 10px;
+        }
+        .product-price {
+            color: #ff6600;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .buy-button {
+            background-color: #ff6600;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.2s;
+        }
+        .buy-button:hover {
+            background-color: #e65c00;
+        }
+    </style>
 </head>
 <body>
-    <h1>Bienvenue dans ma boutique</h1>
-    <p>Découvrez nos produits exclusifs.</p>
-    <div>
-        <h2>Produit 1</h2>
-        <p>Description courte du produit.</p>
-        <p>Prix : 10 000 FCFA</p>
+
+<header>
+    <h1>O'Ramo Store</h1>
+    <p>La qualité supérieure au meilleur prix</p>
+</header>
+
+<div class="container">
+    <!-- Produit 1 -->
+    <div class="product-card">
+        <img src="https://via.placeholder.com/300" alt="Produit 1" class="product-image">
+        <h2 class="product-title">Écouteurs Sans Fil Pro</h2>
+        <div class="product-price">15 000 FCFA</div>
+        <button class="buy-button" onclick="alert('Redirection vers le paiement')">Acheter</button>
     </div>
+
+    <!-- Produit 2 -->
+    <div class="product-card">
+        <img src="https://via.placeholder.com/300" alt="Produit 2" class="product-image">
+        <h2 class="product-title">Batterie Externe 20000mAh</h2>
+        <div class="product-price">12 000 FCFA</div>
+        <button class="buy-button" onclick="alert('Redirection vers le paiement')">Acheter</button>
+    </div>
+
+    <!-- Produit 3 -->
+    <div class="product-card">
+        <img src="https://via.placeholder.com/300" alt="Produit 3" class="product-image">
+        <h2 class="product-title">Montre Connectée Sport</h2>
+        <div class="product-price">25 000 FCFA</div>
+        <button class="buy-button" onclick="alert('Redirection vers le paiement')">Acheter</button>
+    </div>
+</div>
+
 </body>
 </html>
