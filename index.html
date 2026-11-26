@@ -3,109 +3,326 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Service vente - Produits Exclusifs</title>
+    <title>Service Vente - Produits Exclusifs</title>
     <style>
+        :root {
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --text-color: #ffffff;
+            --text-muted: #aaaaaa;
+            --accent-color: #00e676;
+            --accent-secondary: #ff3d00;
+        }
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
             margin: 0;
-            padding: 0;
-            background-color: #f4f4f9;
-            color: #333;
+            padding-bottom: 70px;
         }
         header {
-            background-color: #ff6600;
-            color: white;
-            text-align: center;
-            padding: 2rem 1rem;
+            background-color: var(--card-bg);
+            padding: 15px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #333;
         }
-        header h1 {
-            margin: 0;
-            font-size: 2.5rem;
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+        .search-bar {
+            background: #2a2a2a;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            color: white;
+            width: 50%;
         }
         .container {
-            max-width: 1200px;
-            margin: 20px auto;
-            padding: 0 20px;
+            padding: 15px;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
         }
         .product-card {
-            background: white;
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            text-align: center;
-            transition: transform 0.2s;
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            flex-direction: column;
         }
-        .product-card:hover {
-            transform: translateY(-5px);
+        .badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: var(--accent-secondary);
+            color: white;
+            padding: 4px 8px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            border-radius: 4px;
         }
         .product-image {
             width: 100%;
-            height: 200px;
+            height: 150px;
             object-fit: cover;
-            border-radius: 4px;
-            background-color: #ddd;
+            background-color: #333;
+        }
+        .product-info {
+            padding: 10px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
         .product-title {
-            font-size: 1.2rem;
-            margin: 15px 0 10px;
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+            display: -webkit-box;
+            -webkit-line-cut: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
         }
-        .product-price {
-            color: #ff6600;
-            font-size: 1.5rem;
+        .rating {
+            color: #ffd700;
+            font-size: 0.8rem;
+            margin-bottom: 8px;
+        }
+        .price-container {
+            margin-bottom: 10px;
+        }
+        .current-price {
+            font-size: 1.1rem;
             font-weight: bold;
-            margin-bottom: 15px;
+            color: var(--accent-color);
         }
-        .buy-button {
-            background-color: #ff6600;
+        .original-price {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-decoration: line-through;
+        }
+        .buy-btn {
+            background-color: var(--accent-color);
+            color: #000;
+            border: none;
+            padding: 8px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+        }
+        .admin-section {
+            background-color: #242424;
+            padding: 20px;
+            margin: 20px 15px;
+            border-radius: 12px;
+        }
+        .admin-section h2 { margin-top: 0; }
+        .form-group { margin-bottom: 10px; }
+        .form-group label { display: block; margin-bottom: 5px; font-size: 0.85rem; }
+        .form-group input {
+            width: 100%;
+            padding: 8px;
+            background: #333;
+            border: 1px solid #555;
+            color: white;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .admin-btn {
+            background-color: #2196f3;
             color: white;
             border: none;
-            padding: 10px 20px;
-            font-size: 1rem;
-            border-radius: 5px;
-            cursor: pointer;
+            padding: 10px;
+            border-radius: 6px;
             width: 100%;
-            transition: background-color 0.2s;
+            cursor: pointer;
+            font-weight: bold;
         }
-        .buy-button:hover {
-            background-color: #e56c00;
+        .delete-btn {
+            background-color: #d32f2f;
+            color: white;
+            border: none;
+            padding: 5px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.75rem;
+            margin-top: 5px;
+        }
+        nav.bottom-nav {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: var(--card-bg);
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            border-top: 1px solid #333;
+        }
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            text-decoration: none;
+        }
+        .nav-item.active {
+            color: var(--accent-color);
+        }
+        .nav-icon {
+            font-size: 1.25rem;
+            margin-bottom: 2px;
         }
     </style>
 </head>
 <body>
 
 <header>
-    <h1>O'Ramo Store</h1>
-    <p>La qualité supérieure au meilleur prix</p>
+    <div class="logo">Service Vente</div>
+    <input type="text" class="search-bar" placeholder="Rechercher sur Service Vente...">
 </header>
 
-<div class="container">
-    <!-- Produit 1 -->
-    <div class="product-card">
-        <img src="https://via.placeholder.com/300" alt="Produit 1" class="product-image">
-        <h2 class="product-title">Écouteurs Sans Fil Pro</h2>
-        <div class="product-price">15 000 FCFA</div>
-        <button class="buy-button" onclick="alert('Redirection vers le paiement')">Acheter</button>
-    </div>
-
-    <!-- Produit 2 -->
-    <div class="product-card">
-        <img src="https://via.placeholder.com/300" alt="Produit 2" class="product-image">
-        <h2 class="product-title">Batterie Externe 20000mAh</h2>
-        <div class="product-price">12 000 FCFA</div>
-        <button class="buy-button" onclick="alert('Redirection vers le paiement')">Acheter</button>
-    </div>
-
-    <!-- Produit 3 -->
-    <div class="product-card">
-        <img src="https://via.placeholder.com/300" alt="Produit 3" class="product-image">
-        <h2 class="product-title">Montre Connectée Sport</h2>
-        <div class="product-price">25 000 FCFA</div>
-        <button class="buy-button" onclick="alert('Redirection vers le paiement')">Acheter</button>
-    </div>
+<div class="container" id="product-grid">
+    <!-- Les produits seront chargés ici par JavaScript -->
 </div>
+
+<div class="admin-section">
+    <h2>Gestion des Produits (Simulation)</h2>
+    <div class="form-group">
+        <label>Nom du produit</label>
+        <input type="text" id="prod-title" placeholder="Ex: Écouteurs Pro">
+    </div>
+    <div class="form-group">
+        <label>Prix (FCFA)</label>
+        <input type="number" id="prod-price" placeholder="10000">
+    </div>
+    <div class="form-group">
+        <label>Ancien Prix (FCFA)</label>
+        <input type="number" id="prod-old-price" placeholder="15000">
+    </div>
+    <div class="form-group">
+        <label>Lien de l'image</label>
+        <input type="text" id="prod-img" placeholder="https://via.placeholder.com/300">
+    </div>
+    <button class="admin-btn" onclick="addProduct()">Ajouter le produit</button>
+</div>
+
+<nav class="bottom-nav">
+    <a href="#" class="nav-item active">
+        <span class="nav-icon">🏠</span>
+        Accueil
+    </a>
+    <a href="#" class="nav-item">
+        <span class="nav-icon">📦</span>
+        Catégories
+    </a>
+    <a href="#" class="nav-item">
+        <span class="nav-icon">🛒</span>
+        Panier
+    </a>
+    <a href="#" class="nav-item">
+        <span class="nav-icon">👤</span>
+        Compte
+    </a>
+</nav>
+
+<script>
+    // Initialisation des produits par défaut
+    let products = JSON.parse(localStorage.getItem('shop_products')) || [
+        { id: 1, title: 'Écouteurs Sans Fil Pro', price: 15000, oldPrice: 20000, image: 'https://via.placeholder.com/300', badge: 'PROMO', rating: '4.9 ★' },
+        { id: 2, title: 'Batterie Externe 20000mAh', price: 12000, oldPrice: 18000, image: 'https://via.placeholder.com/300', badge: 'VENTE FLASH', rating: '4.8 ★' },
+        { id: 3, title: 'Montre Connectée Sport', price: 25000, oldPrice: 30000, image: 'https://via.placeholder.com/300', badge: '-15%', rating: '4.7 ★' },
+        { id: 4, title: 'Caméra de Surveillance IP', price: 16900, oldPrice: 19370, image: 'https://via.placeholder.com/300', badge: 'TOP', rating: '4.9 ★' }
+    ];
+
+    function renderProducts() {
+        const grid = document.getElementById('product-grid');
+        grid.innerHTML = '';
+        products.forEach(p => {
+            const card = document.createElement('div');
+            card.className = 'product-card';
+            card.innerHTML = `
+                ${p.badge ? <div class="badge">${p.badge}</div> : ''}
+                <img src="${p.image}" alt="${p.title}" class="product-image" onerror="this.src='https://via.placeholder.com/300'">
+                <div class="product-info">
+                    <div>
+                        <div class="rating">${p.rating || '5.0 ★'}</div>
+                        <div class="product-title">${p.title}</div>
+                    </div>
+                    <div>
+                        <div class="price-container">
+                            <span class="current-price">${p.price.toLocaleString()} FCFA</span>
+                            ${p.oldPrice ? <br><span class="original-price">${p.oldPrice.toLocaleString()} FCFA</span> : ''}
+                        </div>
+                        <a href="https://wa.me/?text=Bonjour, je souhaite commander : ${encodeURIComponent(p.title)}" target="_blank" class="buy-btn">Commander</a>
+                        <button class="delete-btn" onclick="deleteProduct(${p.id})">Supprimer</button>
+                    </div>
+                </div>
+            `;
+            grid.appendChild(card);
+        });
+        localStorage.setItem('shop_products', JSON.stringify(products));
+    }
+
+    function addProduct() {
+        const title = document.getElementById('prod-title').value;
+        const price = parseFloat(document.getElementById('prod-price').value);
+        const oldPrice = parseFloat(document.getElementById('prod-old-price').value);
+        const image = document.getElementById('prod-img').value;
+
+        if (!title ||isNaN(price)) {
+            alert('Veuillez remplir au moins le titre et le prix.');
+            return;
+        }
+
+        const newProduct = {
+            id: Date.now(),
+            title: title,
+            price: price,
+            oldPrice: oldPrice || null,
+            image: image || 'https://via.placeholder.com/300',
+            badge: 'NOUVEAU',
+            rating: '5.0 ★'
+        };
+
+        products.push(newProduct);
+        renderProducts();
+        
+        // Réinitialiser le formulaire
+        document.getElementById('prod-title').value = '';
+        document.getElementById('prod-price').value = '';
+        document.getElementById('prod-old-price').value = '';
+        document.getElementById('prod-img').value = '';
+    }
+
+    function deleteProduct(id) {
+        if(confirm('Voulez-vous vraiment supprimer ce produit ?')) {
+            products = products.filter(p => p.id !== id);
+            renderProducts();
+        }
+    }
+
+    // Recherche en temps réel
+    document.querySelector('.search-bar').addEventListener('input', (e) => {
+        const term = e.target.value.toLowerCase();
+        const cards = document.querySelectorAll('.product-card');
+        cards.forEach(card => {
+            const title = card.querySelector('.product-title').innerText.toLowerCase();
+            card.style.display = title.includes(term) ? '' : 'none';
+        });
+    });
+
+    renderProducts();
+</script>
 
 </body>
 </html>
