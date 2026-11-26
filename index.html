@@ -1,131 +1,181 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Instant Shopping</title>
+<meta name="description" content="Instant Shopping : commandez en quelques clics, payez en ligne ou à la livraison.">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
-:root {
---bg-page: #ffffff;
---text-primary: #111827;
---text-secondary: #4b5563;
---brand-primary: #0f172a;
---brand-accent: #c2410c;
---border-light: #e5e7eb;
+:root{--ink:#0B1020;--c1:#FF4D2E;--c2:#FFB300;--gris:#5B6275}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Sora,Arial,sans-serif;color:var(--ink);background:#fff}
+a{color:inherit}
+.wrap{max-width:1344px;margin:0 auto;padding:0 48px}
+.bar{background:var(--ink);color:#fff;text-align:center;padding:12px 16px;font-size:14px;font-weight:600}
+.top{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;padding-top:20px;padding-bottom:20px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo b{font-size:28px;font-weight:800;letter-spacing:-1px;line-height:1}
+.logo small{font-size:14px;font-weight:600;letter-spacing:.1em;color:var(--gris)}
+nav{display:flex;flex-wrap:wrap;gap:28px}
+nav a{text-decoration:none;font-weight:600;font-size:15px}
+.btn{display:inline-flex;align-items:center;min-height:48px;padding:14px 28px;border:0;border-radius:999px;background:linear-gradient(135deg,var(--c1),var(--c2));color:var(--ink);font:800 16px Sora,Arial,sans-serif;text-decoration:none;cursor:pointer}
+.btn-noir{background:var(--ink);color:#fff;font-weight:600;font-size:15px;padding:14px 20px}
+.hero{display:flex;flex-wrap:wrap;align-items:center;gap:48px;padding-top:56px;padding-bottom:80px}
+.hero-texte{flex:1 1 420px;display:flex;flex-direction:column;gap:24px}
+.eyebrow{font-weight:800;font-size:14px;letter-spacing:.2em;color:var(--gris)}
+h1{margin:0;font-size:64px;line-height:1.02;letter-spacing:-2.5px;font-weight:800}
+.hero p{margin:0;font-size:19px;line-height:1.6;color:var(--gris);max-width:520px}
+.actions{display:flex;flex-wrap:wrap;gap:16px;align-items:center}
+.lien{font-weight:600;display:inline-flex;align-items:center;min-height:48px}
+.visuel{flex:1 1 380px;min-height:460px;border-radius:40px;background:linear-gradient(135deg,var(--c1),var(--c2));position:relative;display:flex;align-items:center;justify-content:center;color:#fff}
+.chip{position:absolute;background:#fff;color:var(--ink);border-radius:999px;padding:12px 20px;font-weight:600;font-size:14px}
+h2{margin:0 0 28px;font-size:36px;letter-spacing:-1px;font-weight:800}
+section.wrap{padding-top:32px;padding-bottom:72px}
+.grille{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.cat{background:#F7F8FA;border-radius:24px;padding:32px 24px;min-height:120px;text-decoration:none;font-weight:800;font-size:20px;display:flex;align-items:flex-end;justify-content:space-between}
+.produits{gap:28px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.produit{display:flex;flex-direction:column;gap:10px}
+.photo{background:#F1F3F7;color:#DDE1EA;border-radius:24px;height:260px;display:flex;align-items:center;justify-content:center}
+.nom{font-weight:600;font-size:17px}
+.prix{color:var(--gris);font-size:15px}
+.band{background:#F7F8FA;padding:80px 0}
+.band h2{margin-bottom:40px}
+.atouts{gap:40px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.atout{display:flex;flex-direction:column;gap:10px}
+.trait{width:44px;height:6px;border-radius:3px;background:linear-gradient(90deg,var(--c1),var(--c2))}
+.atout h3{margin:0;font-size:22px;font-weight:800}
+.atout p{margin:0;color:var(--gris);font-size:16px;line-height:1.6}
+#contact{padding-top:80px;padding-bottom:80px}
+.news{background:var(--ink);color:#fff;border-radius:40px;padding:56px 48px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:32px}
+.news h2{font-size:34px;margin:0 0 10px}
+.news p{margin:0;color:#B4BACB;font-size:16px;line-height:1.6}
+.news-form{flex:1 1 360px;display:flex;flex-wrap:wrap;gap:12px}
+.news input{flex:1 1 200px;min-height:48px;border:0;border-radius:999px;padding:0 22px;font:400 16px Sora,Arial,sans-serif}
+.sr{position:absolute;left:-9999px}
+footer{border-top:1px solid #E4E7EE;padding:32px 0}
+footer .wrap{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:20px;font-size:14px;color:var(--gris)}
+footer .logo b{font-size:22px;color:var(--ink)}
+footer .logo small{font-size:11px}
+.liens{display:flex;flex-wrap:wrap;gap:24px}
+@media (max-width:600px){
+.wrap{padding:0 20px}
+h1{font-size:40px;letter-spacing:-1.5px}
+h2{font-size:28px}
+.news{padding:36px 24px}
 }
-* { box-sizing: border-box; margin: 0; padding: 0; font-family: sans-serif; }
-body { background-color: var(--bg-page); color: var(--text-primary); padding-bottom: 70px; }
-header { position: sticky; top: 0; background: #fff; border-bottom: 1px solid var(--border-light); padding: 10px 20px; z-index: 1000; }
-.header-content { max-width: 1000px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
-.logo { font-weight: bold; font-size: 1.2rem; }
-.search-input { padding: 8px; width: 200px; border: 1px solid var(--border-light); border-radius: 4px; }
-.view-section { display: none; }
-.view-section.active { display: block; }
-.container { max-width: 1000px; margin: 20px auto; padding: 0 20px; }
-.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 15px; }
-.card { border: 1px solid var(--border-light); padding: 10px; border-radius: 8px; text-align: center; }
-.card img { max-width: 100%; height: auto; border-radius: 4px; }
-.btn { background: var(--brand-primary); color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer; margin-top: 10px; }
-.bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: white; border-top: 1px solid var(--border-light); display: flex; justify-content: space-around; padding: 10px 0; z-index: 1000; }
-.nav-tab { background: none; border: none; cursor: pointer; display: flex; flex-direction: column; align-items: center; font-size: 0.8rem; }
-.nav-tab.active { color: var(--brand-accent); font-weight: bold; }
-.panel { border: 1px solid var(--border-light); padding: 20px; border-radius: 8px; margin-top: 10px; }
-.form-group { margin-bottom: 15px; }
-.form-group label { display: block; margin-bottom: 5px; }
-.form-group input { width: 100%; padding: 8px; border: 1px solid var(--border-light); border-radius: 4px; }
 </style>
 </head>
 <body>
-<header>
-<div class="header-content">
-<div class="logo">Instant Shopping</div>
-<input type="text" class="search-input" placeholder="Rechercher...">
-</div>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<defs>
+<linearGradient id="g" gradientUnits="userSpaceOnUse" x1="8" y1="8" x2="56" y2="60"><stop offset="0" stop-color="#FF4D2E"/><stop offset="1" stop-color="#FFB300"/></linearGradient>
+<mask id="bolt" maskUnits="userSpaceOnUse" x="0" y="0" width="64" height="64"><rect width="64" height="64" fill="#fff"/><path d="M37 26 23 44h8.5L28 57l15-19h-8.5z" fill="#000"/></mask>
+<symbol id="logo" viewBox="0 0 64 64"><g mask="url(#bolt)"><path d="M9 21h46l-2.6 34.5A5 5 0 0 1 47.4 60H16.6a5 5 0 0 1-5-4.5z" fill="url(#g)"/></g><path d="M21.5 22v-4.5a10.5 10.5 0 0 1 21 0V22" fill="none" stroke="url(#g)" stroke-width="5.5" stroke-linecap="round"/></symbol>
+<symbol id="logo-uni" viewBox="0 0 64 64"><g mask="url(#bolt)"><path d="M9 21h46l-2.6 34.5A5 5 0 0 1 47.4 60H16.6a5 5 0 0 1-5-4.5z" fill="currentColor"/></g><path d="M21.5 22v-4.5a10.5 10.5 0 0 1 21 0V22" fill="none" stroke="currentColor" stroke-width="5.5" stroke-linecap="round"/></symbol>
+</defs>
+</svg>
+
+<div class="bar">[Votre offre du moment : livraison offerte, code promo…]</div>
+
+<header class="wrap top">
+  <a href="#" class="logo"><svg width="40" height="40" aria-hidden="true"><use href="#logo"/></svg><b>instant <small>SHOPPING</small></b></a>
+  <nav>
+    <a href="#produits">Nouveautés</a>
+    <a href="#categories">Catégories</a>
+    <a href="#pourquoi">Pourquoi nous</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <button class="btn" style="padding:12px 22px">Panier (0)</button>
 </header>
-<main id="view-accueil" class="view-section active">
-<div class="container">
-<h1>Accueil</h1>
-<p>Bienvenue sur notre boutique.</p>
-</div>
-</main>
-<main id="view-produits" class="view-section">
-<div class="container">
-<h1>Produits</h1>
-<div class="grid" id="product-grid">
-<div class="card">
-<img src="[https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=300](https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=300)" alt="Produit">
-<h3>Montre</h3>
-<p>25 000 FCFA</p>
-<button class="btn">Ajouter</button>
-</div>
-<div class="card">
-<img src="[https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=300](https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=300)" alt="Produit">
-<h3>Casque</h3>
-<p>15 000 FCFA</p>
-<button class="btn">Ajouter</button>
-</div>
-</div>
-</div>
-</main>
-<main id="view-panier" class="view-section">
-<div class="container">
-<h1>Panier</h1>
-<p>Votre panier est vide.</p>
-</div>
-</main>
-<main id="view-compte" class="view-section">
-<div class="container">
-<h1>Mon Compte</h1>
-<div class="panel">
-<h2>Programme Affilié</h2>
-<p>Partagez votre lien et gagnez des commissions.</p>
-<p style="font-weight: bold; margin: 10px 0;">Lien : https://instantshopping.ci/?ref=user</p>
-</div>
-<div class="panel">
-<h2>Ajouter un produit</h2>
-<form onsubmit="event.preventDefault(); alert('Produit ajouté !');">
-<div class="form-group">
-<label>Nom du produit</label>
-<input type="text" required>
-</div>
-<div class="form-group">
-<label>Prix (FCFA)</label>
-<input type="number" required>
-</div>
-<button type="submit" class="btn">Publier</button>
-</form>
-</div>
-</div>
-</main>
-<nav class="bottom-nav">
-<button class="nav-tab active" onclick="switchView('accueil')">
-<span>🏠</span>
-Accueil
-</button>
-<button class="nav-tab" onclick="switchView('produits')">
-<span>📦</span>
-Produits
-</button>
-<button class="nav-tab" onclick="switchView('panier')">
-<span>🛒</span>
-Panier
-</button>
-<button class="nav-tab" onclick="switchView('compte')">
-<span>👤</span>
-Compte
-</button>
-</nav>
-<script>
-function switchView(viewId) {
-document.querySelectorAll('.view-section').forEach(section => {
-section.classList.remove('active');
-});
-document.querySelectorAll('.nav-tab').forEach(tab => {
-tab.classList.remove('active');
-});
-document.getElementById('view-' + viewId).classList.add('active');
-event.currentTarget.classList.add('active');
-}
-</script>
+
+<section class="wrap hero">
+  <div class="hero-texte">
+    <div class="eyebrow">ACHETEZ EN UN INSTANT</div>
+    <h1>Ce que vous voulez, livré en un éclair.</h1>
+    <p>Découvrez notre sélection, commandez en quelques clics et recevez vos articles rapidement, sans complication.</p>
+    <div class="actions">
+      <a href="#produits" class="btn">Voir la boutique</a>
+      <a href="#pourquoi" class="lien">Comment ça marche</a>
+    </div>
+  </div>
+  <div class="visuel">
+    <svg width="200" height="200" aria-hidden="true"><use href="#logo-uni"/></svg>
+    <div class="chip" style="left:24px;top:32px">Livraison express</div>
+    <div class="chip" style="right:24px;bottom:32px">Paiement à la livraison</div>
+  </div>
+</section>
+
+<section class="wrap" id="categories">
+  <h2>Parcourez par catégorie</h2>
+  <div class="grille">
+    <a href="#produits" class="cat">[Catégorie 1]<span aria-hidden="true">→</span></a>
+    <a href="#produits" class="cat">[Catégorie 2]<span aria-hidden="true">→</span></a>
+    <a href="#produits" class="cat">[Catégorie 3]<span aria-hidden="true">→</span></a>
+    <a href="#produits" class="cat">[Catégorie 4]<span aria-hidden="true">→</span></a>
+  </div>
+</section>
+
+<section class="wrap" id="produits">
+  <h2>Nouveautés</h2>
+  <div class="grille produits">
+    <div class="produit">
+      <div class="photo"><svg width="90" height="90" aria-hidden="true"><use href="#logo-uni"/></svg></div>
+      <div class="nom">[Nom du produit 1]</div><div class="prix">[Prix]</div>
+      <button class="btn btn-noir">Ajouter au panier</button>
+    </div>
+    <div class="produit">
+      <div class="photo"><svg width="90" height="90" aria-hidden="true"><use href="#logo-uni"/></svg></div>
+      <div class="nom">[Nom du produit 2]</div><div class="prix">[Prix]</div>
+      <button class="btn btn-noir">Ajouter au panier</button>
+    </div>
+    <div class="produit">
+      <div class="photo"><svg width="90" height="90" aria-hidden="true"><use href="#logo-uni"/></svg></div>
+      <div class="nom">[Nom du produit 3]</div><div class="prix">[Prix]</div>
+      <button class="btn btn-noir">Ajouter au panier</button>
+    </div>
+    <div class="produit">
+      <div class="photo"><svg width="90" height="90" aria-hidden="true"><use href="#logo-uni"/></svg></div>
+      <div class="nom">[Nom du produit 4]</div><div class="prix">[Prix]</div>
+      <button class="btn btn-noir">Ajouter au panier</button>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="pourquoi">
+  <div class="wrap">
+    <h2>Pourquoi Instant Shopping</h2>
+    <div class="grille atouts">
+      <div class="atout"><div class="trait"></div><h3>Livraison express</h3><p>Votre commande est préparée et expédiée sans attendre.</p></div>
+      <div class="atout"><div class="trait"></div><h3>Paiement en ligne ou à la livraison</h3><p>Payez en ligne en toute sécurité, ou réglez à la réception de votre commande.</p></div>
+      <div class="atout"><div class="trait"></div><h3>Retours simples</h3><p>Un souci avec un article ? Nous trouvons une solution rapidement.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="wrap" id="contact">
+  <div class="news">
+    <div style="flex:1 1 320px">
+      <h2>Ne ratez aucune nouveauté</h2>
+      <p>Recevez nos offres et nos arrivages en premier.</p>
+    </div>
+    <div class="news-form">
+      <label for="mail" class="sr">Votre e-mail</label>
+      <input id="mail" type="email" placeholder="Votre e-mail">
+      <button class="btn">Je m’inscris</button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <a href="#" class="logo"><svg width="32" height="32" aria-hidden="true"><use href="#logo"/></svg><b>instant <small>SHOPPING</small></b></a>
+    <div class="liens"><a href="#">Mentions légales</a><a href="#">Conditions de vente</a><a href="#contact">Contact</a></div>
+    <div>© Instant Shopping</div>
+  </div>
+</footer>
+
 </body>
 </html>
