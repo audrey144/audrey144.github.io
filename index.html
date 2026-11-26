@@ -3,227 +3,475 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Instant Shopping - Produits Exclusifs</title>
+    <title>Instant Shopping - Le Meilleur du Shopping</title>
     <style>
         :root {
-            --bg-color: #121212;
-            --card-bg: #1e1e1e;
-            --text-color: #ffffff;
-            --text-muted: #aaaaaa;
-            --accent-color: #00e676;
-            --accent-secondary: #ff3d00;
+            --primary: #8e18ff;
+            --primary-gradient: linear-gradient(135deg, #8e18ff, #ff1867);
+            --bg-dark: #0a0a0c;
+            --card-bg: #14141a;
+            --card-border: #23232e;
+            --text-main: #ffffff;
+            --text-muted: #a1a1aa;
+            --accent: #00ff88;
+            --danger: #ff334b;
         }
-        body {
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
+
+        * {
+            box-sizing: border-box;
             margin: 0;
-            padding-bottom: 70px;
+            padding: 0;
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            -webkit-tap-highlight-color: transparent;
         }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            padding-bottom: 80px;
+            overflow-x: hidden;
+        }
+
+        /* Glassmorphism Header */
         header {
-            background-color: var(--card-bg);
-            padding: 15px;
             position: sticky;
             top: 0;
             z-index: 1000;
+            background: rgba(10, 10, 12, 0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--card-border);
+            padding: 15px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid #333;
         }
+
         .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--accent-color);
+            font-size: 1.4rem;
+            font-weight: 800;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
         }
-        .search-bar {
-            background: #2a2a2a;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 20px;
+
+        .search-container {
+            flex: 1;
+            max-width: 400px;
+            margin: 0 20px;
+        }
+
+        .search-input {
+            width: 100%;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            padding: 10px 16px;
+            border-radius: 25px;
             color: white;
-            width: 50%;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
         }
-        .container {
-            padding: 15px;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 15px rgba(142, 24, 255, 0.3);
         }
-        .product-card {
-            background-color: var(--card-bg);
-            border-radius: 12px;
-            overflow: hidden;
+
+        /* Hero Banner */
+        .hero {
+            padding: 20px;
+            background: radial-gradient(circle at top right, rgba(142, 24, 255, 0.2), transparent 50%);
+        }
+
+        .hero-content {
+            background: var(--card-gradient, linear-gradient(145deg, #181820, #111116));
+            padding: 30px;
+            border-radius: 24px;
+            border: 1px solid var(--card-border);
+            text-align: center;
             position: relative;
+            overflow: hidden;
+        }
+
+        .hero-title {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .hero-subtitle {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* Category Pills */
+        .category-scroll {
+            display: flex;
+            gap: 10px;
+            padding: 15px 20px;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        .category-scroll::-webkit-scrollbar { display: none; }
+
+        .cat-btn {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            color: var(--text-muted);
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: 500;
+            white-space: nowrap;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .cat-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+            box-shadow: 0 4px 15px rgba(142, 24, 255, 0.4);
+        }
+
+        /* Luxury Product Grid */
+        .main-container {
+            padding: 10px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+
+        @media (min-width: 768px) {
+            .product-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        .product-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            border: 1px solid var(--card-border);
+            overflow: hidden;
             display: flex;
             flex-direction: column;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+            position: relative;
         }
-        .badge {
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+        }
+
+        .image-wrapper {
+            position: relative;
+            background: white;
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .product-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .floating-badge {
             position: absolute;
             top: 10px;
             left: 10px;
-            background-color: var(--accent-secondary);
-            color: white;
-            padding: 4px 8px;
-            font-size: 0.75rem;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.7rem;
             font-weight: bold;
-            border-radius: 4px;
+            color: var(--accent);
+            border: 1px solid rgba(255,255,255,0.1);
         }
-        .product-image {
-            width: 100%;
-            height: 150px;
-            object-fit: cover;
-            background-color: #333;
-        }
-        .product-info {
-            padding: 10px;
-            flex-grow: 1;
+
+        .card-body {
+            padding: 14px;
             display: flex;
             flex-direction: column;
+            flex-grow: 1;
             justify-content: space-between;
         }
+
+        .rating-stars {
+            color: #ffb700;
+            font-size: 0.75rem;
+            margin-bottom: 4px;
+        }
+
         .product-title {
             font-size: 0.9rem;
+            font-weight: 600;
+            line-height: 1.3;
             margin-bottom: 8px;
             display: -webkit-box;
-            -webkit-line-cut: 2;
+            -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
             overflow: hidden;
         }
-        .rating {
-            color: #ffd700;
-            font-size: 0.8rem;
-            margin-bottom: 8px;
+
+        .price-wrapper {
+            margin-top: auto;
+            margin-bottom: 12px;
         }
-        .price-container {
-            margin-bottom: 10px;
-        }
+
         .current-price {
-            font-size: 1.1rem;
-            font-weight: bold;
-            color: var(--accent-color);
+            font-size: 1.15rem;
+            font-weight: 800;
+            color: var(--white);
         }
+
         .original-price {
             font-size: 0.85rem;
             color: var(--text-muted);
             text-decoration: line-through;
+            margin-left: 6px;
         }
-        .buy-btn {
-            background-color: var(--accent-color);
-            color: #000;
-            border: none;
-            padding: 8px;
-            border-radius: 6px;
-            font-weight: bold;
-            cursor: pointer;
-            text-align: center;
-            text-decoration: none;
-        }
-        .admin-section {
-            background-color: #242424;
-            padding: 20px;
-            margin: 20px 15px;
-            border-radius: 12px;
-        }
-        .admin-section h2 { margin-top: 0; }
-        .form-group { margin-bottom: 10px; }
-        .form-group label { display: block; margin-bottom: 5px; font-size: 0.85rem; }
-        .form-group input {
+
+        .buy-button {
             width: 100%;
-            padding: 8px;
-            background: #333;
-            border: 1px solid #555;
-            color: white;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-        .admin-btn {
-            background-color: #2196f3;
+            background: var(--primary-gradient);
             color: white;
             border: none;
             padding: 10px;
-            border-radius: 6px;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        .buy-button:active {
+            opacity: 0.8;
+        }
+
+        /* Modern Admin Panel */
+        .section-title {
+            font-size: 1.5rem;
+            margin: 30px 20px 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .admin-panel {
+            background: var(--card-bg);
+            border-radius: 24px;
+            border: 1px solid var(--card-border);
+            padding: 24px;
+            margin: 20px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .form-group.full-width {
+            grid-column: span 2;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+        }
+
+        .form-input, .form-select {
             width: 100%;
-            cursor: pointer;
-            font-weight: bold;
-        }
-        .delete-btn {
-            background-color: #d32f2f;
+            background: var(--bg-dark);
+            border: 1px solid var(--card-border);
+            padding: 12px;
+            border-radius: 12px;
             color: white;
-            border: none;
-            padding: 5px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 0.75rem;
-            margin-top: 5px;
+            font-size: 0.9rem;
         }
-        nav.bottom-nav {
+
+        .form-input:focus, .form-select:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .submit-btn {
+            grid-column: span 2;
+            background: var(--accent);
+            color: black;
+            border: none;
+            padding: 14px;
+            border-radius: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        /* Product Management List */
+        .management-list {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .management-item {
+            background: var(--bg-dark);
+            border: 1px solid var(--card-border);
+            padding: 12px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .management-item img {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            object-fit: cover;
+            background: white;
+        }
+
+        .item-details {
+            flex-grow: 1;
+        }
+
+        .item-title {
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .item-price {
+            color: var(--accent);
+            font-size: 0.85rem;
+        }
+
+        .delete-btn {
+            background: rgba(255, 51, 75, 0.1);
+            color: var(--danger);
+            border: 1px solid var(--danger);
+            padding: 8px 16px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        /* Bottom Navigation Bar */
+        .bottom-nav {
             position: fixed;
             bottom: 0;
-            width: 100%;
-            background-color: var(--card-bg);
+            left: 0;
+            right: 0;
+            background: rgba(20, 20, 26, 0.95);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid var(--card-border);
             display: flex;
             justify-content: space-around;
-            padding: 10px 0;
-            border-top: 1px solid #333;
+            padding: 12px 0;
         }
+
         .nav-item {
+            color: var(--text-muted);
+            text-decoration: none;
             display: flex;
             flex-direction: column;
             align-items: center;
-            color: var(--text-muted);
+            gap: 5px;
             font-size: 0.75rem;
-            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
         }
+
         .nav-item.active {
-            color: var(--accent-color);
+            color: var(--primary);
         }
+
         .nav-icon {
-            font-size: 1.25rem;
-            margin-bottom: 2px;
+            font-size: 1.4rem;
         }
     </style>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
 
 <header>
     <div class="logo">Instant Shopping</div>
-    <input type="text" class="search-bar" placeholder="Rechercher sur Instant Shopping...">
+    <div class="search-container">
+        <input type="text" class="search-input" placeholder="Rechercher un produit de luxe...">
+    </div>
 </header>
 
-<div class="container" id="product-grid">
-    <!-- Les produits seront chargés ici par JavaScript -->
+<div class="hero">
+    <div class="hero-content">
+        <h1 class="hero-title">L'Excellence à Portée de Main</h1>
+        <p class="hero-subtitle">Découvrez notre sélection exclusive de cosmétiques et accessoires</p>
+    </div>
 </div>
 
-<div class="admin-section">
-    <h2>Gestion des Produits (Simulation)</h2>
-    <div class="form-group">
-        <label>Nom du produit</label>
-        <input type="text" id="prod-title" placeholder="Ex: Écouteurs Pro">
+<div class="category-scroll">
+    <button class="cat-btn active">Tous les Produits</button>
+    <button class="cat-btn">Soins & Beauté</button>
+    <button class="cat-btn">Accessoires</button>
+    <button class="cat-btn">Électronique</button>
+    <button class="cat-btn">Mode & Style</button>
+</div>
+
+<div class="main-container">
+    <div class="product-grid" id="productGrid">
+        <!-- Produits générés dynamiquement -->
     </div>
-    <div class="form-group">
-        <label>Prix (FCFA)</label>
-        <input type="number" id="prod-price" placeholder="10000">
+</div>
+
+<h2 class="section-title"><span>⚙️</span> Administration</h2>
+<div class="admin-panel">
+    <form id="productForm">
+        <div class="form-grid">
+            <div class="form-group full-width">
+                <label>Nom du Produit</label>
+                <input type="text" class="form-input" id="title" required placeholder="Ex: Kit Éclat Royal">
+            </div>
+            <div class="form-group">
+                <label>Prix (FCFA)</label>
+                <input type="number" class="form-input" id="price" required placeholder="25000">
+            </div>
+            <div class="form-group">
+                <label>Ancien Prix (Optionnel)</label>
+                <input type="number" class="form-input" id="oldPrice" placeholder="35000">
+            </div>
+            <div class="form-group full-width">
+                <label>Lien de l'Image</label>
+                <input type="url" class="form-input" id="image" required placeholder="https://images.unsplash.com/...">
+            </div>
+        </div>
+        <button type="submit" class="submit-btn">+ Ajouter à la Boutique</button>
+    </form>
+
+    <div class="management-list" id="managementList">
+        <!-- Liste de gestion -->
     </div>
-    <div class="form-group">
-        <label>Ancien Prix (FCFA)</label>
-        <input type="number" id="prod-old-price" placeholder="15000">
-    </div>
-    <div class="form-group">
-        <label>Lien de l'image</label>
-        <input type="text" id="prod-img" placeholder="https://via.placeholder.com/300">
-    </div>
-    <button class="admin-btn" onclick="addProduct()">Ajouter le produit</button>
 </div>
 
 <nav class="bottom-nav">
     <a href="#" class="nav-item active">
-        <span class="nav-icon">🏠</span>
+        <span class="nav-icon">✨</span>
         Accueil
     </a>
     <a href="#" class="nav-item">
         <span class="nav-icon">📦</span>
-        Catégories
+        Catalogue
     </a>
     <a href="#" class="nav-item">
         <span class="nav-icon">🛒</span>
@@ -236,93 +484,72 @@
 </nav>
 
 <script>
-    // Initialisation des produits par défaut
-    let products = JSON.parse(localStorage.getItem('shop_products')) || [
-        { id: 1, title: 'Écouteurs Sans Fil Pro', price: 15000, oldPrice: 20000, image: 'https://via.placeholder.com/300', badge: 'PROMO', rating: '4.9 ★' },
-        { id: 2, title: 'Batterie Externe 20000mAh', price: 12000, oldPrice: 18000, image: 'https://via.placeholder.com/300', badge: 'VENTE FLASH', rating: '4.8 ★' },
-        { id: 3, title: 'Montre Connectée Sport', price: 25000, oldPrice: 30000, image: 'https://via.placeholder.com/300', badge: '-15%', rating: '4.7 ★' },
-        { id: 4, title: 'Caméra de Surveillance IP', price: 16900, oldPrice: 19370, image: 'https://via.placeholder.com/300', badge: 'TOP', rating: '4.9 ★' }
+    let products = JSON.parse(localStorage.getItem('instant_shopping_db')) || [
+        { id: 1, title: "Sérum Éclat Visage Lux", price: 15000, oldPrice: 20000, image: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=500&q=80", tag: "LUXE" },
+        { id: 2, title: "Montre Connectée Élégance", price: 25000, oldPrice: 35000, image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=500&q=80", tag: "POPULAIRE" }
     ];
 
-    function renderProducts() {
-        const grid = document.getElementById('product-grid');
+    function saveAndRender() {
+        localStorage.setItem('instant_shopping_db', JSON.stringify(products));
+        const grid = document.getElementById('productGrid');
+        const list = document.getElementById('managementList');
         grid.innerHTML = '';
+        list.innerHTML = '';
+
         products.forEach(p => {
-            const card = document.createElement('div');
-            card.className = 'product-card';
-            card.innerHTML = `
-                ${p.badge ? <div class="badge">${p.badge}</div> : ''}
-                <img src="${p.image}" alt="${p.title}" class="product-image" onerror="this.src='https://via.placeholder.com/300'">
-                <div class="product-info">
-                    <div>
-                        <div class="rating">${p.rating || '5.0 ★'}</div>
-                        <div class="product-title">${p.title}</div>
+            const hasDiscount = p.oldPrice && p.oldPrice > p.price;
+            grid.innerHTML += `
+                <div class="product-card">
+                    <div class="image-wrapper">
+                        ${p.tag ? <div class="floating-badge">${p.tag}</div> : ''}
+                        <img src="${p.image}" alt="${p.title}" class="product-image">
                     </div>
-                    <div>
-                        <div class="price-container">
+                    <div class="card-body">
+                        <div class="rating-stars">★★★★★</div>
+                        <div class="product-title">${p.title}</div>
+                        <div class="price-wrapper">
                             <span class="current-price">${p.price.toLocaleString()} FCFA</span>
-                            ${p.oldPrice ? <br><span class="original-price">${p.oldPrice.toLocaleString()} FCFA</span> : ''}
+                            ${hasDiscount ? <span class="original-price">${p.oldPrice.toLocaleString()} FCFA</span> : ''}
                         </div>
-                        <a href="https://wa.me/?text=Bonjour, je souhaite commander : ${encodeURIComponent(p.title)}" target="_blank" class="buy-btn">Commander</a>
-                        <button class="delete-btn" onclick="deleteProduct(${p.id})">Supprimer</button>
+                        <button class="buy-button" onclick="alert('Commande lancée pour : ${p.title}')">Commander</button>
                     </div>
                 </div>
             `;
-            grid.appendChild(card);
+
+            list.innerHTML += `
+                <div class="management-item">
+                    <img src="${p.image}" alt="">
+                    <div class="item-details">
+                        <div class="item-title">${p.title}</div>
+                        <div class="item-price">${p.price.toLocaleString()} FCFA</div>
+                    </div>
+                    <button class="delete-btn" onclick="deleteProduct(${p.id})">Supprimer</button>
+                </div>
+            `;
         });
-        localStorage.setItem('shop_products', JSON.stringify(products));
     }
 
-    function addProduct() {
-        const title = document.getElementById('prod-title').value;
-        const price = parseFloat(document.getElementById('prod-price').value);
-        const oldPrice = parseFloat(document.getElementById('prod-old-price').value);
-        const image = document.getElementById('prod-img').value;
-
-        if (!title ||isNaN(price)) {
-            alert('Veuillez remplir au moins le titre et le prix.');
-            return;
-        }
-
+    document.getElementById('productForm').addEventListener('submit', (e) => {
+        e.preventDefault();
         const newProduct = {
             id: Date.now(),
-            title: title,
-            price: price,
-            oldPrice: oldPrice || null,
-            image: image || 'https://via.placeholder.com/300',
-            badge: 'NOUVEAU',
-            rating: '5.0 ★'
+            title: document.getElementById('title').value,
+            price: Number(document.getElementById('price').value),
+            oldPrice: Number(document.getElementById('oldPrice').value) || null,
+            image: document.getElementById('image').value,
+            tag: "NOUVEAU"
         };
-
-        products.push(newProduct);
-        renderProducts();
-        
-        // Réinitialiser le formulaire
-        document.getElementById('prod-title').value = '';
-        document.getElementById('prod-price').value = '';
-        document.getElementById('prod-old-price').value = '';
-        document.getElementById('prod-img').value = '';
-    }
-
-    function deleteProduct(id) {
-        if(confirm('Voulez-vous vraiment supprimer ce produit ?')) {
-            products = products.filter(p => p.id !== id);
-            renderProducts();
-        }
-    }
-
-    // Recherche en temps réel
-    document.querySelector('.search-bar').addEventListener('input', (e) => {
-        const term = e.target.value.toLowerCase();
-        const cards = document.querySelectorAll('.product-card');
-        cards.forEach(card => {
-            const title = card.querySelector('.product-title').innerText.toLowerCase();
-            card.style.display = title.includes(term) ? '' : 'none';
-        });
+        products.unshift(newProduct);
+        saveAndRender();
+        e.target.reset();
     });
 
-    renderProducts();
-</script>
+    function deleteProduct(id) {
+        products = products.filter(p => p.id !== id);
+        saveAndRender();
+    }
 
+    saveAndRender();
+</script>
 </body>
 </html>
