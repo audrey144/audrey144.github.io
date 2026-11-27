@@ -82,7 +82,7 @@ document.getElementById('adminList').innerHTML = 'Veuillez configurer vos accès
 return;
 }
 try {
-const res = await fetch(https://api.github.com/repos/${config.user}/${config.repo}/contents/products.json, {
+const res = await fetch(`\https://api.github.com/repos/${config.user}/${config.repo}/contents/products.json, {
 headers: { Authorization: token ${config.token}, 'If-None-Match': '' }
 });
 if(res.ok) {
