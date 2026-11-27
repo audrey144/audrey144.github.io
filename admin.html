@@ -88,8 +88,8 @@
             return;
         }
         try {
-            const res = await fetch(https://api.github.com/repos/${config.user}/${config.repo}/contents/products.json, {
-                headers: { Authorization: token ${config.token}, 'If-None-Match': '' }
+            const res = await fetch(`https://api.github.com/repos/${config.user}/${config.repo}/contents/products.json`, {
+                headers: { Authorization: `token ${config.token}`, 'If-None-Match': '' }
             });
             if(res.ok) {
                 const data = await res.json();
@@ -156,17 +156,17 @@
         const content = btoa(unescape(encodeURIComponent(JSON.stringify(products, null, 2))));
         try {
             let sha = '';
-            const checkRes = await fetch(https://api.github.com/repos/${config.user}/${config.repo}/contents/products.json, {
-                headers: { Authorization: token ${config.token} }
+            const checkRes = await fetch(`https://api.github.com/repos/${config.user}/${config.repo}/contents/products.json`, {
+                headers: { Authorization: `token ${config.token}` }
             });
             if(checkRes.ok) {
                 const data = await checkRes.json();
                 sha = data.sha;
             }
 
-            const res = await fetch(https://api.github.com/repos/${config.user}/${config.repo}/contents/products.json, {
+            const res = await fetch(`https://api.github.com/repos/${config.user}/${config.repo}/contents/products.json`, {
                 method: 'PUT',
-                headers: { Authorization: token ${config.token}, 'Content-Type': 'application/json' },
+                headers: { Authorization: `token ${config.token}`, 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     message: 'Mise à jour catalogue',
                     content: content,
